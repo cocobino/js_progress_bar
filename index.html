@@ -5,24 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>progress_bar</title>
     <link rel="stylesheet" href='./index.css' />
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 </head>
 <body>
     <h1>progressbar</h1>
-    <!-- wrapper -->
-    <div class="progress_bar_warpper">
-        <div class="progress_bar_bgArea">
-            <div id="progress" class="progress"></div>
-            <div class="progress_bar_bg"></div>
-            <div class="progress_bar_bg"></div>
-            <div class="progress_bar_bg"></div>
-            <div class="progress_bar_bg"></div>
-            <div class="progress_bar_bg"></div>
-        </div>
-        <div class="progress_bar_range">
-            <input id="range" class="" type="range" />
-        </div>
-    </div>
+ 
+    <div id="test"></div>
     
     <script src="./index.js"></script>
+    <script>
+  document.querySelector('#test').innerHTML+=RangeBar({
+    divider: 5,
+    name: 'rangeBar2',
+    key:'range',
+    type: 'manipulate',
+    color: {progress: '#5e7cea', divider: '#7e96ee'},
+    value: '30',
+    width: '250',
+    attribute: {min: 0, max: 100, step:10},
+    textArea: true
+}).template();
+
+    document.querySelector('#test').innerHTML+=RangeBar({
+    divider: 5,
+    name: 'rangeBar',
+    key:'range',
+    type: 'manipulate',
+    color: {progress: '#5e7cea', divider: '#7e96ee'},
+    value: '30',
+    width: '250',
+    attribute: {min: 0, max: 100, step:10},
+    textArea: true
+}).template();
+
+document.querySelector('#test').innerHTML+=RangeBar({
+    divider: 5,
+    name: 'rangeBar1',
+    key:'range',
+    type: 'result',
+    color: {progress: '#f16ba0', divider: '#f3a1c5'},
+    value: '30',
+    width: '250',
+    attribute: {min: 0, max: 100},
+    textArea: false
+}).template();
+    </script>
 </body>
 </html>

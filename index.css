@@ -1,6 +1,7 @@
 .progress_bar_warpper {
     display: inline-block;
     position: relative;
+    width: 290px;
 }
 
 .progress_bar_warpper .progress_bar_bgArea {
@@ -14,23 +15,25 @@
 .progress_bar_warpper .progress_bar_bgArea .progress {
     position: absolute;
     height: 10px;
+    overflow: hidden;
+    max-width: 100%;
+    transition: width .2s ease;
+}
+
+.progress_bar_warpper .progress_bar_bgArea .progress .divider {
+    position: absolute;
+    width: 1px;
+    height: 10px;
+    background: #7e96ee;
 }
 
 .progress_bar_warpper .progress_bar_bgArea .progress_bar_bg {
     height: 10px;
     width: 50px;
     background: #e7ebf6;
-    margin-left: 2px;
+    margin-left: 1px;
 }
 
-.progress_bar_warpper .progress_bar_bgArea .progress_bar_bg:first-child {
-    margin-left: 0;
-    border-radius: 5px 0 0 5px;
-}
-
-.progress_bar_warpper .progress_bar_bgArea .progress_bar_bg:last-child {
-    border-radius: 0 5px 5px 0;
-}
 
 .progress_bar_warpper .progress_bar_range input[type="range"] {
     position: absolute;
@@ -46,10 +49,26 @@
 
 .progress_bar_warpper .progress_bar_range input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
+}
+
+.progress_bar_warpper .progress_bar_range input[type="range"].manipulate::-webkit-slider-thumb {
     cursor: pointer;
     width: 16px;
     height: 16px;
     border-radius: 8px;
     background: white;
     box-shadow: 0px 0px 20px gray;
+}
+
+.progress_bar_warpper .progress_bar_range input[type="text"] {
+    border: 1px solid #dadada;
+    outline: none;
+    position: absolute;
+    top: -11px;
+    right: -10px;
+    height: 30px;
+    width: 40px;
+    padding: 7px;
+    box-sizing: border-box;
+    text-align: center;
 }
