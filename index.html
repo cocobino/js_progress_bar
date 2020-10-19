@@ -14,41 +14,42 @@
     
     <script src="./index.js"></script>
     <script>
-  document.querySelector('#test').innerHTML+=RangeBar({
-    divider: 5,
-    name: 'rangeBar2',
-    key:'range',
-    type: 'manipulate',
-    color: {progress: '#5e7cea', divider: '#7e96ee'},
-    value: '30',
-    width: '250',
-    attribute: {min: 0, max: 100, step:10},
-    textArea: true
-}).template();
+        document.querySelector('#test').appendChild(RangeBar.setData({
+            divider: 5,
+            name: 'rangeBar2',
+            key:'range',
+            type: 'manipulate',
+            color: {progress: '#5e7cea', divider: '#7e96ee'},
+            value: '30',
+            width: '250',
+            attribute: {min: 0, max: 100, step:10},
+            textArea: true
+        }));
 
-    document.querySelector('#test').innerHTML+=RangeBar({
-    divider: 5,
-    name: 'rangeBar',
-    key:'range',
-    type: 'manipulate',
-    color: {progress: '#5e7cea', divider: '#7e96ee'},
-    value: '30',
-    width: '250',
-    attribute: {min: 0, max: 100, step:10},
-    textArea: true
-}).template();
+        document.querySelector('#test').appendChild(RangeBar.setData({
+            divider: 5,
+            name: 'rangeBar1',
+            key:'range',
+            type: 'manipulate',
+            color: {progress: '#5e7cea', divider: '#7e96ee'},
+            value: '30',
+            width: '250',
+            attribute: {min: 0, max: 100, step:10},
+            textArea: true
+        }));
 
-document.querySelector('#test').innerHTML+=RangeBar({
-    divider: 5,
-    name: 'rangeBar1',
-    key:'range',
-    type: 'result',
-    color: {progress: '#f16ba0', divider: '#f3a1c5'},
-    value: '30',
-    width: '250',
-    attribute: {min: 0, max: 100},
-    textArea: false
-}).template();
+        document.querySelector('#test').appendChild(RangeBar.setData({
+            divider: 5,
+            name: 'rangeBar3',
+            key:'range',
+            type: 'result',
+            color: {progress: '#f16ba0', divider: '#f3a1c5'},
+            value: '30',
+            width: '250',
+            attribute: {min: 0, max: 100},
+            textArea: false
+        }));
+
     </script>
 </body>
 </html>

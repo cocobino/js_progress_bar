@@ -17,7 +17,7 @@
     height: 10px;
     overflow: hidden;
     max-width: 100%;
-    transition: width .2s ease;
+    transition: width .1s ease;
 }
 
 .progress_bar_warpper .progress_bar_bgArea .progress .divider {

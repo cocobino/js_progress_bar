@@ -1,6 +1,10 @@
-const RangeBar = (() => {
-    let opt = {};
+const RangeBar = (()=> {
+    let rangeToMap, element;
 
+    //Range data
+    rangeToMap = {};
+
+        
         const validation = (() => {
             const type = ['manipulate', 'result'];
             // const attri
@@ -26,8 +30,8 @@ const RangeBar = (() => {
         // 진행바
             function range() {
                 return `<div class="progress_bar_range">
-                            <input type="range" class="${opt.type}" value="${opt.value}" data-id="${opt.name}:range" data-type="${opt.type}" data-target="${opt.name}" data-key="${opt.key}" name="${opt.name}" step="${opt['attribute']['step'] ? opt['attribute']['step'] : ''}" min="${opt['attribute']['min'] ? opt['attribute']['min'] : ''}" max="${opt['attribute']['max'] ? opt['attribute']['max'] : ''}"/>
-                            ${opt.textArea ? `<input type="text" data-target="${opt.name}" data-id="${opt.name}:rangeTxt" value=${opt.value ? opt.value : ''} data-key="${opt.key}Txt" name="${opt.name}Txt"/>` : ''}
+                            <input type="range" class="${opt.type}" value="${opt.value}" data-name="${opt.name}" data-id="${opt.name}:range" data-type="${opt.type}" data-target="${opt.name}" data-key="${opt.key}" name="${opt.name}" step="${opt['attribute']['step'] ? opt['attribute']['step'] : ''}" min="${opt['attribute']['min'] ? opt['attribute']['min'] : ''}" max="${opt['attribute']['max'] ? opt['attribute']['max'] : ''}"/>
+                            ${opt.textArea ? `<input type="text" data-target="${opt.name}" data-name="${opt.name}" data-id="${opt.name}:rangeTxt" value=${opt.value ? opt.value : ''} data-key="${opt.key}Txt" name="${opt.name}Txt"/>` : ''}
                         </div>`
             }
         //  default
@@ -49,54 +53,64 @@ const RangeBar = (() => {
         })();
 
         function event() {
-            const cssUtil = ($target, bg, width) => {
-                $target.css({
-                    'background': bg,
-                    'border-radius': '8px 0 0 8px',
-                    'width' : `${width}%`
-                });
+            const cssUtil = (DOM, bg, width) => {
+                DOM['style']['background'] =bg;
+                DOM['style']['border-radius'] ='8px 0 0 8px';
+                DOM['style']['width'] =`${width}%`;
             };
-            const $doc =$(document);
-
             // rangeBar
-            $doc.on('input', `input[data-id="${opt.name}:range"]`, e => {
+            element.querySelector(`input[data-id="${opt.name}:range"]`).addEventListener('input', e => { 
                 const value = e.target.value;
                 const target =  e.target.dataset.target;
                 const type = e.target.dataset.type;
-                const $progress = $(`div[data-id="${target}:progress"]`);
-                const $input = $(`input[data-id="${target}:rangeTxt"]`);
+                const DOMprogress = document.querySelector(`div[data-id="${target}:progress"]`);
+                const DOMinput = document.querySelector(`input[data-id="${target}:rangeTxt"]`);
                 
-                cssUtil($progress, opt['color']['progess'],value);
-                $input.val(value);
+                cssUtil(DOMprogress, rangeToMap[e.target.dataset.name]['color']['progress'], value);
+                DOMinput.value = value;
 
                 if(type === 'manipulate') {
                     let resultValue=0;
-                    $(`input[data-key="${opt.key}"][data-type="${type}"]`).each((i, $dom) => resultValue += Number($dom.value));
-                    $(`input[data-key="${opt.key}"][data-type="result"]`).val(resultValue);
-                    $(`div[data-type="result"][data-key=${e.target.dataset.key}]`).css('width', resultValue+'%');
+                    document.querySelectorAll(`input[data-key="${opt.key}"][data-type="${type}"]`).forEach(DOM => {
+                        resultValue += Number(DOM.value) 
+                    });
+                    document.querySelector(`input[data-key="${opt.key}"][data-type="result"]`).value = resultValue;
+                    document.querySelector(`div[data-type="result"][data-key=${e.target.dataset.key}]`)['style']['width'] =`${resultValue}%`;        
                 }
             });
 
             // inputTxt
-            $doc.on('keyup', `input[data-id="${opt.name}:rangeTxt"]`, e => {
-                const value = e.target.value;
-                const target = e.target.dataset.target;
-                const $range = $(`input[data-id="${target}:range"]`);
-                const $progress = $(`div[data-id="${target}:progress"]`);
-
-                cssUtil($progress, opt['color']['progess'],value);
-                $range.val(value);
-            });
+            if(opt.textArea) {
+                element.querySelector(`input[data-id="${opt.name}:rangeTxt"]`).addEventListener('keyup', e => {
+                    const value = e.target.value;
+                    const target = e.target.dataset.target;
+                    const DOMprogress = $(`div[data-id="${target}:progress"]`);
+                    const DOMrange = $(`input[data-id="${target}:range"]`);
+    
+                    cssUtil(DOMprogress, rangeToMap[e.target.dataset.name]['color']['progress'],value);
+                    DOMrange.value = value;
+                });
+            }
         };
 
-    return function(option) {
-        opt = {...option};
-        validation(opt);
-        event();
+        const setData = (option) => {
+            rangeToMap[option.name] = opt = {...option};
+            element = document.createElement('div');
+            element.innerHTML = template();
+            element = element.firstChild;
+            
+            event();
+            return element;
+        };
+
+        const getData = () => {
+
+        };
+        
         return {
-            el:$(template()),
-            template: template
-        };
-    }
+            element,
+            setData,
+            getData
+        }
     
 })();
